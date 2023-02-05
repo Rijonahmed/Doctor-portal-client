@@ -1,6 +1,7 @@
 import React from 'react';
 import Services from '../Services/Services';
 import Banner from './Banner/Banner';
+import ContactUS from './ContactUS/ContactUS';
 import Exceptional from './Exceptional/Exceptional';
 import InfoCards from './InfoCards/InfoCards';
 import MakeAppoentment from './MakeAppoentment/MakeAppoentment';
@@ -16,6 +17,7 @@ const Home = () => {
       <Exceptional />
       <MakeAppoentment />
       <Textimonials />
+      <ContactUS />
     </div>
   );
 };
