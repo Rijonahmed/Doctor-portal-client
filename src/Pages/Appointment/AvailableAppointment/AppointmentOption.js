@@ -1,7 +1,7 @@
 import React from 'react';
-import PrimaryButton from '../../../Component/PrimaryButton/PrimaryButton';
 
-const AppointmentOption = ({ AppointmentOption }) => {
+
+const AppointmentOption = ({ AppointmentOption, setTreatment }) => {
   const { name, slots } = AppointmentOption
   return (
     <div>
@@ -11,7 +11,8 @@ const AppointmentOption = ({ AppointmentOption }) => {
           <p>{slots.length > 0 ? slots[0] : 'Try Another Day'}</p>
           <p>{slots.length} spaces available</p>
           <div className="card-actions justify-center">
-            <PrimaryButton>Book Appointment</PrimaryButton>
+            <label disabled={slots.length === 0} htmlFor="my-modal-3" className='btn btn-primary text-white' onClick={() => setTreatment(AppointmentOption)}>Book Appointment</label>
+
           </div>
         </div>
       </div>
