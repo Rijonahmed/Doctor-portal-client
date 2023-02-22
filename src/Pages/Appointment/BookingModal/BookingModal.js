@@ -1,8 +1,13 @@
+
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-hot-toast';
+
+import { AuthContext } from '../../../Contexts/AuthProvider';
 
 const BookingModal = ({ treatment, setTreatment, selected }) => {
   const { name, slots } = treatment;
+  const { user } = useContext(AuthContext)
   const date = format(selected, 'PP')
 
   const handleBooking = event => {
@@ -12,7 +17,7 @@ const BookingModal = ({ treatment, setTreatment, selected }) => {
     const patientName = form.patientName.value;
     const email = form.email.value;
     const phone = form.phone.value;
-    console.log(slot, name, email, phone)
+
 
     const booking = {
       appointmentDate: date,
@@ -23,8 +28,30 @@ const BookingModal = ({ treatment, setTreatment, selected }) => {
       patientName: patientName
 
     }
-    console.log(booking)
-    setTreatment(null)
+
+
+
+
+
+    fetch('http://localhost:5000/booking', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(booking)
+
+    })
+
+
+      .then(res => res.json())
+      .then(data => {
+        toast.success('product inserted success')
+        setTreatment(null);
+      });
+
+
+
+
   }
 
   return (
@@ -44,9 +71,9 @@ const BookingModal = ({ treatment, setTreatment, selected }) => {
 
               }
             </select>
-            <input type="text" name='patientName' placeholder="Name" className="input w-full" />
-            <input type="text" name='email' placeholder="Email" className="input w-full" />
-            <input type="text" name='phone' placeholder="Phone" className="input w-full" />
+            <input type="text" name='patientName' defaultValue={user?.displayName} disabled className="input w-full" />
+            <input type="text" name='email' disabled defaultValue={user?.email} className="input w-full" />
+            <input type="text" name='phone' required placeholder="Phone" className="input w-full" />
             <input className='btn btn-accent w-full' type='submit' value='Submit'></input>
           </form>
         </div>
