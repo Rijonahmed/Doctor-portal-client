@@ -5,7 +5,7 @@ import { toast } from 'react-hot-toast';
 
 import { AuthContext } from '../../../Contexts/AuthProvider';
 
-const BookingModal = ({ treatment, setTreatment, selected }) => {
+const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
   const { name, slots } = treatment;
   const { user } = useContext(AuthContext)
   const date = format(selected, 'PP')
@@ -30,9 +30,6 @@ const BookingModal = ({ treatment, setTreatment, selected }) => {
     }
 
 
-
-
-
     fetch('http://localhost:5000/booking', {
       method: 'post',
       headers: {
@@ -45,8 +42,9 @@ const BookingModal = ({ treatment, setTreatment, selected }) => {
 
       .then(res => res.json())
       .then(data => {
-        toast.success('product inserted success')
+        toast.success('appointment booking success')
         setTreatment(null);
+        refetch()
       });
 
 
