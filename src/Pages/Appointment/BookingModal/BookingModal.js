@@ -42,9 +42,17 @@ const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
 
       .then(res => res.json())
       .then(data => {
-        toast.success('appointment booking success')
-        setTreatment(null);
-        refetch()
+        console.log(data)
+        if (data.acknowledged) {
+          toast.success('appointment booking success')
+          setTreatment(null);
+          refetch()
+        }
+        else {
+          toast.error(data.message);
+
+        }
+
       });
 
 
@@ -69,8 +77,8 @@ const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
 
               }
             </select>
-            <input type="text" name='patientName' defaultValue={user?.displayName} disabled className="input w-full" />
-            <input type="text" name='email' disabled defaultValue={user?.email} className="input w-full" />
+            <input type="text" name='patientName' defaultValue={user?.displayName} required disabled className="input w-full" />
+            <input type="text" name='email' disabled defaultValue={user?.email} required className="input w-full" />
             <input type="text" name='phone' required placeholder="Phone" className="input w-full" />
             <input className='btn btn-accent w-full' type='submit' value='Submit'></input>
           </form>

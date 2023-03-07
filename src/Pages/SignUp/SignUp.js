@@ -5,12 +5,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
 const SignUp = () => {
-  const [signUpError, setSignUpError] = useState('')
-  const { createUser, updateUser } = useContext(AuthContext)
-  const navigate = useNavigate()
   const { register, formState: { errors }, handleSubmit } = useForm();
-  const handleSignUp = data => {
-    setSignUpError('')
+  const [signUpError, setSignUpError] = useState('');
+  const { createUser, updateUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSignUp = (data) => {
+    setSignUpError('');
+    console.log(data.name)
 
     createUser(data.email, data.password)
       .then(result => {
@@ -18,13 +20,15 @@ const SignUp = () => {
 
         console.log(user)
         toast.success('Successfully created an Account')
+
         const userInfo = {
           displayName: data.name
-
         }
         updateUser(userInfo)
-          .then(() => { })
-        navigate('/')
+          .then(() => {
+            saveUser(data?.name, data?.email);
+          })
+
           .catch(err => console.log(err))
 
       })
@@ -32,6 +36,23 @@ const SignUp = () => {
         console.log(error)
         setSignUpError(error.message)
       });
+    console.log(data.name)
+  }
+  const saveUser = (name, email) => {
+    const user = { name, email };
+
+    fetch('http://localhost:5000/users', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        navigate('/')
+      })
   }
   return (
     <div>

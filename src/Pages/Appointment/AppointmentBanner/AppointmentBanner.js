@@ -5,7 +5,7 @@ import chair from '../../../assets/images/bgAppointment.png'
 const AppointmentBanner = ({ selected, setSelected }) => {
 
   return (
-    <div className='flex flex-col-reverse md:flex-row gap-8  justify-between items-center bg-slate-100 px-8'>
+    <div className='flex flex-col-reverse md:flex-row  justify-around items-center bg-slate-100 px-8'>
 
       <div className="text-center">
         <div className=''>
