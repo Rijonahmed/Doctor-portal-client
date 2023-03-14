@@ -31,7 +31,7 @@ const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
     }
 
 
-    fetch('http://localhost:5000/booking', {
+    fetch('https://doctor-portal-server-lac.vercel.app/booking', {
       method: 'post',
       headers: {
         'content-type': 'application/json'

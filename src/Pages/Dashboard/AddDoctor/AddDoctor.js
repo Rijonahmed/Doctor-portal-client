@@ -32,7 +32,7 @@ const AddDoctor = () => {
             image: imgdata.data.url
           }
 
-          fetch('http://localhost:5000/doctors', {
+          fetch('https://doctor-portal-server-lac.vercel.app/doctors', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',
@@ -56,7 +56,7 @@ const AddDoctor = () => {
   const { data: specialies, isLoading } = useQuery({
     queryKey: ['specialty'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/appointmentSpecialty')
+      const res = await fetch('https://doctor-portal-server-lac.vercel.app/appointmentSpecialty')
       const data = await res.json()
       return data
     }
