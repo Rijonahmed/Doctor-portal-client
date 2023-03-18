@@ -49,7 +49,7 @@ const SignUp = () => {
   const saveUser = (name, email) => {
     const user = { name, email };
 
-    fetch('https://doctor-portal-server-lac.vercel.app/users', {
+    fetch('https://doctor-portal-server-api.onrender.com/users', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

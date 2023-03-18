@@ -31,7 +31,7 @@ const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
     }
 
 
-    fetch('https://doctor-portal-server-lac.vercel.app/booking', {
+    fetch('https://doctor-portal-server-api.onrender.com/booking', {
       method: 'post',
       headers: {
         'content-type': 'application/json'

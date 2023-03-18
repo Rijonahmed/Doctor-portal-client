@@ -6,14 +6,14 @@ const AllUser = () => {
   const { data: users = [], refetch } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const res = await fetch('https://doctor-portal-server-lac.vercel.app/users')
+      const res = await fetch('https://doctor-portal-server-api.onrender.com/users')
       const data = await res.json();
       return data;
     }
   });
 
   const handleMakeAdmin = id => {
-    fetch(`https://doctor-portal-server-lac.vercel.app/users/admin/${id}`, {
+    fetch(`https://doctor-portal-server-api.onrender.com/users/admin/${id}`, {
       method: 'PUT',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`

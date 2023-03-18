@@ -14,7 +14,7 @@ const ManageDoctors = () => {
     queryKey: ['doctors'],
     queryFn: async () => {
       try {
-        const res = await fetch('https://doctor-portal-server-lac.vercel.app/doctors',
+        const res = await fetch('https://doctor-portal-server-api.onrender.com/doctors',
           {
             headers: {
 
@@ -29,7 +29,7 @@ const ManageDoctors = () => {
     }
   });
   const handleDeleteDoctor = doctor => {
-    fetch(`https://doctor-portal-server-lac.vercel.app/doctors/${doctor._id}`,
+    fetch(`https://doctor-portal-server-api.onrender.com/doctors/${doctor._id}`,
       {
         method: 'DELETE',
         headers: {

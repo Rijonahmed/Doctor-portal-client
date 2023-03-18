@@ -13,7 +13,7 @@ const AvailableAppointment = ({ selected }) => {
   const { data: AppointmentOptions = [], refetch, isLoading } = useQuery({
     queryKey: ['appointmentOptions', date],
     queryFn: async () => {
-      const res = await fetch(`https://doctor-portal-server-lac.vercel.app/appointmentOptions?date=${date}`)
+      const res = await fetch(`https://doctor-portal-server-api.onrender.com/appointmentOptions?date=${date}`)
       const data = await res.json()
       return data
     }
@@ -21,7 +21,7 @@ const AvailableAppointment = ({ selected }) => {
 
 
   // useEffect(() => {
-  //   fetch('https://doctor-portal-server-lac.vercel.app/appointmentOptions')
+  //   fetch('https://doctor-portal-server-api.onrender.com/appointmentOptions')
   //     .then(res => res.json())
   //     .then(data => setAppointmentOption(data))
 
