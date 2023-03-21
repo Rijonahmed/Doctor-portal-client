@@ -1,12 +1,18 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../Contexts/AuthProvider';
+import ConfirmationModal from '../../Shared/ConfirmationModal';
 
 const AllBooking = () => {
+  const [deletingBookings, setDeletingDoctor] = useState(null);
+  const closeModal = () => {
+    setDeletingDoctor(null)
+  }
   const { user } = useContext(AuthContext);
   const url = `https://doctor-portal-server-api.onrender.com/bookings`
 
-  const { data: bookings = [] } = useQuery({
+  const { data: bookings = [], refetch } = useQuery({
     queryKey: ['booking', user.email],
     queryFn: async () => {
       const res = await fetch(url, {
@@ -19,6 +25,27 @@ const AllBooking = () => {
     }
   })
   const [query, setQuery] = useState('');
+
+
+  const handleDeleteDoctor = booking => {
+    fetch(`https://doctor-portal-server-api.onrender.com/bookings/${booking._id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          authorization: `bearer ${localStorage.getItem('accessToken')}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+
+        if (data.deletedCount > 0) {
+          toast.success(`${booking.patientName} is deleted successfully`);
+          refetch();
+        }
+      })
+  }
+
+
   return (
     <div>
       <h1 className='text-3xl'>All Bookings(<span className='font-bold'>{bookings?.length}</span>) </h1>
@@ -40,6 +67,7 @@ const AllBooking = () => {
               <th>AppointmentDate</th>
               <th>Time</th>
               <th>Price</th>
+              <th></th>
 
             </tr>
           </thead>
@@ -54,6 +82,12 @@ const AllBooking = () => {
                   <td>{booking?.appointmentDate}</td>
                   <td>{booking?.slot}</td>
                   <td>{booking?.price}</td>
+                  <td>
+                    <label onClick={() => {
+                      setDeletingDoctor(booking)
+                    }} htmlFor="confirmation-modal" className="btn btn-xs btn-outline btn-error">Delete</label>
+
+                  </td>
 
                 </tr>)
             }
@@ -62,6 +96,16 @@ const AllBooking = () => {
           </tbody>
         </table>
       </div>
+
+      {
+        deletingBookings && <ConfirmationModal
+          title={'Are you sure you want to delete ?'}
+          message={`If you delete ${deletingBookings.patientName} it cannot be data back.`}
+          handleDeleteDoctor={handleDeleteDoctor}
+          modalData={deletingBookings}
+          closeModal={closeModal}
+        ></ConfirmationModal>
+      }
 
     </div>
   );
