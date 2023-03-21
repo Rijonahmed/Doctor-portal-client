@@ -81,7 +81,8 @@ const BookingModal = ({ treatment, setTreatment, selected, refetch }) => {
             <input type="text" name='patientName' defaultValue={user?.displayName} required disabled className="input w-full" />
             <input type="text" name='email' disabled defaultValue={user?.email} required className="input w-full" />
             <input type="text" name='phone' required placeholder="Phone" className="input w-full" />
-            <input className='btn btn-accent w-full' type='submit' value='Submit'></input>
+
+            <input disabled={!user} className='btn btn-accent w-full' type='submit' value='Submit'></input>
           </form>
         </div>
       </div>

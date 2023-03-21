@@ -3,6 +3,7 @@ import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import Appointment from "../../Pages/Appointment/Appointment/Appointment";
 import AddDoctor from "../../Pages/Dashboard/AddDoctor/AddDoctor";
+import AllBooking from "../../Pages/Dashboard/AllBooking/AllBooking";
 import AllUser from "../../Pages/Dashboard/AllUser/AllUser";
 import ManageDoctors from "../../Pages/Dashboard/ManageDoctor/ManageDoctors";
 
@@ -62,6 +63,10 @@ const router = createBrowserRouter(
         {
           path: '/dashboard/managedoctors',
           element: <AdminRoute><ManageDoctors></ManageDoctors></AdminRoute>
+        },
+        {
+          path: '/dashboard/allbooking',
+          element: <AdminRoute><AllBooking></AllBooking></AdminRoute>
         },
         {
           path: '/dashboard/payment/:id',
